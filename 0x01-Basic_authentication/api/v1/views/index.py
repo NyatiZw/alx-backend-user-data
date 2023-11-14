@@ -37,4 +37,12 @@ def unauthorized_endpoint() -> str:
         - Error 401
     """
     abort(401)
-    return jsonify(unauthorized_endpoint)
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden_endpoint() -> str:
+    """Get /api/v1/forbidden
+    Return:
+        - Error 403
+    """
+    abort(403)
