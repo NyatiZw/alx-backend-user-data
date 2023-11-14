@@ -63,5 +63,35 @@ class RedactingFormatter(logging.Formatter):
         return super(RedactingFormatter, self).format(record)
 
 
+#Define PII_FIELDS with the fields considered
+PII_FIELDS = ('name', 'email', 'phone', 'address', 'credit_card')
+
+
+def get_logger():
+    """
+    Get a configured logging.Logger object
+
+    Returns:
+    - logging.Logger: Configured logger object
+    """
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+
+    logger.proagate = False
+
+    stream_handler = StreamHandler()
+    redacting_formatter = RedactingFormatter(fields=PII_FIELDS)
+    stream_handler.setFormatter(redacting_formatter)
+
+    logger.addHandler(stream_handler)
+
+    return logger
+
+
 if __name__ == "__main__":
-    pass
+    logger = get_logger()
+
+    with open('user_data.csv', 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            logger.info("User data: %s", row)
