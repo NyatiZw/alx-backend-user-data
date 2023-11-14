@@ -63,7 +63,7 @@ class RedactingFormatter(logging.Formatter):
         return super(RedactingFormatter, self).format(record)
 
 
-#Define PII_FIELDS with the fields considered
+"""Define PII_FIELDS with the fields considered"""
 PII_FIELDS = ('name', 'email', 'phone', 'address', 'credit_card')
 
 
