@@ -4,6 +4,7 @@
 from flask import jsonify, abort
 from api.v1.views import app_views
 from flask import Blueprint
+from models.user import User
 
 
 app_views = Blueprint('app_views', __name__)
@@ -24,9 +25,7 @@ def stats() -> str:
     Return:
       - the number of each objects
     """
-    from models.user import User
-    stats = {}
-    stats['users'] = User.count()
+    stats = {'user': User.count()}
     return jsonify(stats)
 
 
