@@ -19,7 +19,6 @@ class RedactingFormatter(logging.Formatter):
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
-
     def format(self, record: logging.LogRecord) -> str:
         def filter_datum(fields, redaction, message, separator):
             return re.sub(
@@ -28,7 +27,12 @@ class RedactingFormatter(logging.Formatter):
                     message
                 )
 
-        record.msg = filter_datum(self.fields, self.REDACTION, record.msg, self.SEPARATOR)
+        record.msg = filter_datum(
+                self.fields,
+                self.REDACTION,
+                record.msg,
+                self.SEPARATOR
+            )
         return super(RedactingFormatter, self).format(record)
 
 
