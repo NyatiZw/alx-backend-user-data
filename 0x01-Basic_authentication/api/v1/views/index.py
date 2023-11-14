@@ -25,7 +25,8 @@ def stats() -> str:
     Return:
       - the number of each objects
     """
-    stats = {'user': User.count()}
+    stats = {}
+    stats['users'] = User.count()
     return jsonify(stats)
 
 
