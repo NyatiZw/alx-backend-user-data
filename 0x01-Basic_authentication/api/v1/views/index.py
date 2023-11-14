@@ -3,7 +3,7 @@
 """
 from flask import jsonify, abort
 from api.v1.views import app_views
-from flask import Blueprint, abort
+from flask import Blueprint
 
 
 app_views = Blueprint('app_views', __name__)
@@ -31,5 +31,5 @@ def stats() -> str:
 
 
 @app_views.route('/unauthorized', methods=['GET'])
-def unauthorized_endpoint():
+def unauthorized_endpoint() -> str:
     abort(401)
