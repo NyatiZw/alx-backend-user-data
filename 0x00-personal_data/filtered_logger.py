@@ -24,7 +24,7 @@ def filter_datum(
     """
     return re.sub(
             f'({separator.join(fields)}){separator}(.*?){separator}',
-            f'\\i{redaction}{separator}',
+            f'\\1{redaction}{separator}',
             message
         )
 
