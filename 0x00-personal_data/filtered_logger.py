@@ -88,10 +88,39 @@ def get_logger() -> logging.Logger:
     return logger
 
 
+def get_db():
+    """
+    Get a connector to the MySQL database
+
+    Returns:
+    - mysql.connector.connection.MySQLConnection: Database
+    """
+    db_username = os.environ.get('PERSONAL_DATA_DB_USERNAME', 'root')
+    db_password = os.environ.get('PERSONAL_DATA_DB_PASSWORD', '')
+    db_host = os.environ.get('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.environ.get('PERSONAL_DATA_DB_NAME')
+
+    try:
+        db_connector = connect(
+            user=db_username,
+            password=db_password,
+            host=db_host,
+            database=db_name
+        )
+        return db_connector
+    except Error as e:
+        print(f"Error: {e}")
+        return None
+
+
 if __name__ == "__main__":
     logger = get_logger()
+    db_connector = get_db()
 
-    with open('user_data.csv', 'r') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            logger.info("User data: %s", row)
+    if db_connection:
+        with open('user_data.csv', 'r') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                logger.info("User data: %s", row)
+
+        db_connection.close()
