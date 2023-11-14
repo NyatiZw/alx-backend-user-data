@@ -19,7 +19,7 @@ def status() -> str:
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats/', strict_slashes=False)
+@app_views.route('/stats', strict_slashes=False)
 def stats() -> str:
     """ GET /api/v1/stats
     Return:
@@ -37,3 +37,4 @@ def unauthorized_endpoint() -> str:
         - Error 401
     """
     abort(401)
+    return jsonify(unauthorized_endpoint)
